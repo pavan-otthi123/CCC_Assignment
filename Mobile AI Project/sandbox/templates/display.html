@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="../static/css/style.css">
+
+            
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    </head>
+    <body>
+    <div class="container">
+    <h1>Object Detected</h1>
+    <section>
+        <form action="/">
+            <input type="submit" value="Back to Image Detection" class="btn btn-primary btn-lg">
+        </form>
+    </section>
+    <ol>
+
+    {% for i in range(0,image_data|length) %} 
+    <li>
+        <p> {{image_data[i]['cur_class']}}</p>
+        <div id="container">
+        <img src="{{image_data[i]["image"]}}" alt="" >
+        <canvas width="640" height="780" id={{i}}></canvas> </div>
+
+        <script>
+            console.log({{image_data[i]["coord_3"]}})
+            var c = document.getElementById("{{i}}");
+            var ctx = c.getContext("2d");
+            ctx.beginPath();
+            ctx.rect(parseInt({{image_data[i]["coord_0"]}}) + 60, parseInt({{image_data[i]["coord_1"]}}), parseInt({{image_data[i]["coord_2"]}}), parseInt({{image_data[i]["coord_3"]}}));
+            ctx.stroke();
+
+        </script>
+    </li> 
+    {% endfor %} 
+
+    </ol>
+    </div>
+    </body>
+  
+</html>
